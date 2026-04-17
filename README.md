@@ -42,7 +42,7 @@ DATABASE_URL="file:./dev.db"
 sqlite3 --version 
 #Se usa Ubuntu, ele vem com uma versão estavél baixada já 
 ```
-    * Caso não tenha baixado rode:
+  * Caso não tenha baixado rode:
 ```bash
     sudo apt update
     sudo apt install sqlite3
@@ -97,11 +97,12 @@ Acesse em http://localhost:3000
     POST http://localhost:3000/users
     
     body: json
-
+  ```
     {
         "name": "Any",
         "email": "any@mail.com"
     }
+  ```
 - Buscar usuário com ID:
     
     GET http://localhost:3001/users/:id
