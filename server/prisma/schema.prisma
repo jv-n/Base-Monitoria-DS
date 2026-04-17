@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id    String     @id @default(uuid())
+  name  String
+  email String  @unique
+
+  tasks Task[]
+}
+
+/* 
+     Comentário importante que esqueci de falar:
+     Como as tasks precisam ter usuários, antes de apagar o usuário deve-se apagar
+     todas as tasks dele. Então é importante que na relação você registre o comportamento
+     das tasks no delete do usuário (onDelete: Cascade), ou mantenha a relação como opcional 
+     adicionando ? após User (lembrando que o banco de dados vai guardar as Tasks mesmo se o usuário for apagado)
+     
+*/
+
+model Task {
+  id          String     @id @default(uuid())
+  title       String
+  description String?
+  completed   Boolean @default(false)
+  userId      String
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
